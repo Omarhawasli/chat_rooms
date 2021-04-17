@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 bg-secondary" style="min-height: 75vh;" id="messagesDiv">
+
+            </div>
+            <div class="col-md-12">
+                <div class="input-group mb-3 mt-3">
+                    <input id="messageInp" type="text" class="form-control" placeholder="Your Message">
+                    <div class="input-group-append">
+                        <button id="sendBtn" class="btn btn-outline-secondary" type="button">Send</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        const messagesDiv = document.getElementById('messagesDiv');
+        const messageInp = document.getElementById('messageInp');
+        const sendBtn = document.getElementById('sendBtn')
+
+        const socket = io();
+        const room = '<%=room%>';
+        const name = '<%=username%>';
+
+        //chosse room to connect
+        socket.emit('chooseRoom', {room: room, name: name})
+
+        sendBtn.addEventListener('click', () => {
+            socket.emit('msg', {
+                name: name,
+                room: room,
+                message: messageInp.value
+            })
+            
+            const par = document.createElement('p');
+            par.innerHTML = `<strong>${data.name} :</strong> ${data.messageInp.value}`
+            messagesDiv.append(par)
+
+            messagesDiv.value = '';
+        })
+
+        socket.on('newmsg', data => {
+            const par = document.createElement('p');
+            par.innerHTML = `<strong>${data.name} :</strong> ${data.message}`
+            messagesDiv.append(par)
+        })
+
+        socket.on('newuser', data => {
+            const par = document.createElement('p');
+            par.innerHTML = `<strong>${data.name} has joind the chat.. </strong> ${data.message}`
+            messagesDiv.append(par)
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/chat" method="POST" >
+                    <div class="form-group">
+                        <label for="nameInp">Your Name</label>
+                        <input type="text" class="form-control" id="nameInp" name="username" placeholder="Enter Your Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="roomSelect">Room</label>
+                        <select id="roomSelect" class="form-control" name="room">
+                            <option value="" selected>Select a Room</option>
+                            <option value="frontEnd" >Front End</option>
+                            <option value="BackEnd" >Back End</option>
+                            <option value="DataBase" >DataBase</option>
+                            <option value="Robots" >Robots</option>
+                        </select>
+                    </div>
+
+                    <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
